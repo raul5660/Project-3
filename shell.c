@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <ctype.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #define MAX_LINE 64                 // The maximum length command
-#define MAX_COMMANDS 5              // Max size of commands in history
+#define MAX_COMMANDS 10             // Max size of commands in history
 
 // Prototype
 void getArguments(char *line, char **argv);
@@ -23,13 +24,27 @@ int main(void) {
     char *argv[MAX_LINE];                                   // the command line argument
     bool should_run = true;                                 // flag to determine when to exit program
     bool shouldIWait = true;                                // flag to determine if a parent should wait for child
-    int upCmd, i;		 			    					// iterate through history
+    int upCmd;		 			    					// iterate through history
 
     while (should_run) {                                    // will run until exit is found
         printf("osh>");                                     // print shell prompt
         gets(args);                                         // get user input
         strcpy(tmpArgs,args);
 
+        if (strstr(args, "!") != NULL) {
+            if (cmdCount < MAX_COMMANDS) {
+                upCmd = cmdCount;
+            } else {
+                upCmd = MAX_COMMANDS;                        // only allows max commands
+            }
+            if (strstr(args, "!!") != NULL) {
+                strcpy(args, showHistory[upCmd - 1]);
+            } else {
+
+            }
+            printf("[%s]\n",args);
+            strcpy(tmpArgs,args);
+        }
         if (strstr(args, "&") != NULL) {                    // checks if arguments should run in the background
             shouldIWait = false;                            // to be used to in runArguments function to determine whether it should wait for the child
             int i = strlen(args);                           // get the length of the string
@@ -40,14 +55,14 @@ int main(void) {
             should_run = false;                             // change should_run to false
         }
 
-	else if (strncmp(args,"history", 7) == 0) {	    		// if argument is history
-			if (cmdCount < MAX_COMMANDS)        
-				upCmd = cmdCount;
-			else 
-				upCmd = MAX_COMMANDS;	    				// only allows max commands
-			
-			for (i = 0; i < upCmd; i++) {	    			// displays history
-				printf("%d \t %s\n", i, showHistory[i]);
+	    else if (strncmp(args,"history", 7) == 0) {            // if argument is history
+            if (cmdCount < MAX_COMMANDS) {
+                upCmd = cmdCount;
+            } else {
+                upCmd = MAX_COMMANDS;                        // only allows max commands
+            }
+			for (int i = upCmd-1; i >= 0; i--) {	    			// displays history
+				printf("%d \t %s\n", i+1, showHistory[i]);
 			}
 			continue;
 		}
