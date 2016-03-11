@@ -12,7 +12,7 @@
 // Prototype
 void getArguments(char *line, char **argv);
 void runArguments(char **argv, bool shouldWait);
-void addToHistory(char args[]);		
+void addToHistory(char args[]);
 
 // Global
 char showHistory [MAX_COMMANDS][MAX_LINE];
@@ -37,13 +37,48 @@ int main(void) {
             } else {
                 upCmd = MAX_COMMANDS;                        // only allows max commands
             }
+
             if (strstr(args, "!!") != NULL) {
                 strcpy(args, showHistory[upCmd - 1]);
-            } else {
+		        strcpy(tmpArgs,args);
+		}
+	     else {
+
+		if(strstr(args, "!1")) {
+			strcpy(args, showHistory[0]);
+			strcpy(tmpArgs,args);
+		} else if(strstr(args, "!2")) {
+			strcpy(args, showHistory[1]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!3")) {
+            strcpy(args, showHistory[2]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!4")) {
+            strcpy(args, showHistory[3]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!5")) {
+            strcpy(args, showHistory[4]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!6")) {
+            strcpy(args, showHistory[5]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!7")) {
+            strcpy(args, showHistory[6]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!8")) {
+            strcpy(args, showHistory[7]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!9")) {
+            strcpy(args, showHistory[8]);
+            strcpy(tmpArgs,args);
+        } else if(strstr(args, "!10")) {
+            strcpy(args, showHistory[9]);
+            strcpy(tmpArgs,args);
+        }
 
             }
             printf("[%s]\n",args);
-            strcpy(tmpArgs,args);
+            //strcpy(tmpArgs,args);
         }
         if (strstr(args, "&") != NULL) {                    // checks if arguments should run in the background
             shouldIWait = false;                            // to be used to in runArguments function to determine whether it should wait for the child
@@ -56,6 +91,7 @@ int main(void) {
         }
 
 	    else if (strncmp(args,"history", 7) == 0) {            // if argument is history
+            addToHistory("history");
             if (cmdCount < MAX_COMMANDS) {
                 upCmd = cmdCount;
             } else {
