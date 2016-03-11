@@ -42,36 +42,36 @@ int main(void) {
                 strcpy(args, showHistory[upCmd - 1]);
 		        strcpy(tmpArgs,args);
 		}
-	     else {
+	     else {                                             // allows user to choose from history list
 
-		if(strstr(args, "!1")) {
+		if(strstr(args, "!1")) {                            // history  list option 1
 			strcpy(args, showHistory[0]);
 			strcpy(tmpArgs,args);
-		} else if(strstr(args, "!2")) {
+		} else if(strstr(args, "!2")) {                     // history  list option 2
 			strcpy(args, showHistory[1]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!3")) {
+        } else if(strstr(args, "!3")) {                     // history  list option 3
             strcpy(args, showHistory[2]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!4")) {
+        } else if(strstr(args, "!4")) {                     // history  list option 4
             strcpy(args, showHistory[3]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!5")) {
+        } else if(strstr(args, "!5")) {                     // history  list option 5
             strcpy(args, showHistory[4]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!6")) {
+        } else if(strstr(args, "!6")) {                     // history  list option 6
             strcpy(args, showHistory[5]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!7")) {
+        } else if(strstr(args, "!7")) {                     // history  list option 7
             strcpy(args, showHistory[6]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!8")) {
+        } else if(strstr(args, "!8")) {                     // history  list option 8
             strcpy(args, showHistory[7]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!9")) {
+        } else if(strstr(args, "!9")) {                     // history  list option 9
             strcpy(args, showHistory[8]);
             strcpy(tmpArgs,args);
-        } else if(strstr(args, "!10")) {
+        } else if(strstr(args, "!10")) {                    // history  list option 10
             strcpy(args, showHistory[9]);
             strcpy(tmpArgs,args);
         }
@@ -91,7 +91,7 @@ int main(void) {
         }
 
 	    else if (strncmp(args,"history", 7) == 0) {            // if argument is history
-            addToHistory("history");
+            addToHistory("history");                           // adds "history" command to history list
             if (cmdCount < MAX_COMMANDS) {
                 upCmd = cmdCount;
             } else {
