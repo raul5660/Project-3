@@ -19,6 +19,7 @@ int cmdCount = 0;
 
 int main(void) {
     char args[MAX_LINE];                                    // the input line
+    char tmpArgs[MAX_LINE];
     char *argv[MAX_LINE];                                   // the command line argument
     bool should_run = true;                                 // flag to determine when to exit program
     bool shouldIWait = true;                                // flag to determine if a parent should wait for child
@@ -26,8 +27,8 @@ int main(void) {
 
     while (should_run) {                                    // will run until exit is found
         printf("osh>");                                     // print shell prompt
-        //gets(args);                                       // get user input
-        scanf("%s", args);
+        gets(args);                                         // get user input
+        strcpy(tmpArgs,args);
 
         if (strstr(args, "&") != NULL) {                    // checks if arguments should run in the background
             shouldIWait = false;                            // to be used to in runArguments function to determine whether it should wait for the child
@@ -52,7 +53,7 @@ int main(void) {
 		}
         else {                                              // else
             getArguments(args,argv);                        // parse arguments
-			addToHistory(args);				    			// add to history
+			addToHistory(tmpArgs);				    			// add to history
             runArguments(argv, shouldIWait);                // run arguments
         }
         shouldIWait = true;                                 // change shouldIWait back to true
