@@ -78,7 +78,7 @@ int main(void) {
         }
         if (strstr(args, "&") != NULL) {                    // checks if arguments should run in the background
             shouldIWait = false;                            // to be used to in runArguments function to determine whether it should wait for the child
-            int i = strlen(args);                           // get the length of the string
+            size_t i = strlen(args);                        // get the length of the string
             args[i-2] = '\0';                               // remove the white space before &
             args[i-1] = '\0';                               // remote the &
         }
